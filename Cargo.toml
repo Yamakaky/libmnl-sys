@@ -1,0 +1,9 @@
+[package]
+name = "libmnl-sys"
+version = "0.1.0"
+authors = ["yamakaky"]
+
+[dependencies]
+enum_primitive = "0.1"
+libc = "0.2"
+num = "0.1"
