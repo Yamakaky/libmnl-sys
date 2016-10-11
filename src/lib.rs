@@ -30,6 +30,25 @@ pub mod socket {
     pub const NETLINK_NETFILTER: c_int = 12;
     pub const BUFFER_SIZE: usize = 8192;
 
+    pub const NLM_F_REQUEST: u16 = 1;
+    pub const NLM_F_MULTI: u16 = 2;
+    pub const NLM_F_ACK: u16 = 4;
+    pub const NLM_F_ECHO: u16 = 8;
+    pub const NLM_F_DUMP_INTR: u16 = 16;
+    pub const NLM_F_DUMP_FILTERED: u16 = 32;
+
+    /* Modifiers to GET request */
+    pub const NLM_F_ROOT: u16 = 0x100;
+    pub const NLM_F_MATCH: u16 = 0x200;
+    pub const NLM_F_ATOMIC: u16 = 0x400;
+    pub const NLM_F_DUMP: u16 = NLM_F_ROOT | NLM_F_MATCH;
+
+    /* Modifiers to NEW request */
+    pub const NLM_F_REPLACE: u16 = 0x100;
+    pub const NLM_F_EXCL: u16 = 0x200;
+    pub const NLM_F_CREATE: u16 = 0x400;
+    pub const NLM_F_APPEND: u16 = 0x800;
+
     #[link(name = "mnl")]
     extern "C" {
         #[link_name = "mnl_socket_open"]
