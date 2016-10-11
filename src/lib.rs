@@ -37,13 +37,13 @@ pub mod socket {
     pub const NLM_F_DUMP_INTR: u16 = 16;
     pub const NLM_F_DUMP_FILTERED: u16 = 32;
 
-    /* Modifiers to GET request */
+    // Modifiers to GET request
     pub const NLM_F_ROOT: u16 = 0x100;
     pub const NLM_F_MATCH: u16 = 0x200;
     pub const NLM_F_ATOMIC: u16 = 0x400;
     pub const NLM_F_DUMP: u16 = NLM_F_ROOT | NLM_F_MATCH;
 
-    /* Modifiers to NEW request */
+    // Modifiers to NEW request
     pub const NLM_F_REPLACE: u16 = 0x100;
     pub const NLM_F_EXCL: u16 = 0x200;
     pub const NLM_F_CREATE: u16 = 0x400;
@@ -58,10 +58,7 @@ pub mod socket {
         #[link_name = "mnl_socket_fdopen"]
         pub fn fdopen(fd: c_int) -> *mut socket;
         #[link_name = "mnl_socket_bind"]
-        pub fn bind(nl: *mut socket,
-                    groups: c_uint,
-                    pid: pid_t)
-                    -> c_int;
+        pub fn bind(nl: *mut socket, groups: c_uint, pid: pid_t) -> c_int;
         #[link_name = "mnl_socket_close"]
         pub fn close(nl: *mut socket) -> c_int;
         #[link_name = "mnl_socket_get_fd"]
@@ -115,9 +112,7 @@ pub mod nlmsg {
         #[link_name = "mnl_nlmsg_get_payload"]
         pub fn get_payload(nlh: *const nlmsghdr) -> *mut c_void;
         #[link_name = "mnl_nlmsg_get_payload_offset"]
-        pub fn get_payload_offset(nlh: *const nlmsghdr,
-                                  offset: usize)
-                                  -> *mut c_void;
+        pub fn get_payload_offset(nlh: *const nlmsghdr, offset: usize) -> *mut c_void;
         #[link_name = "mnl_nlmsg_get_payload_tail"]
         pub fn get_payload_tail(nlh: *const nlmsghdr) -> *mut c_void;
         #[link_name = "mnl_nlmsg_fprintf"]
@@ -174,10 +169,9 @@ pub mod attr {
         TYPE_BINARY = 11,
         TYPE_MAX = 12,
     }
-    pub type attr_cb_t =
-        ::std::option::Option<unsafe extern "C" fn(attr: *const nlattr,
-                                                     data: *mut c_void)
-                                                     -> c_int>;
+    pub type attr_cb_t = ::std::option::Option<unsafe extern "C" fn(attr: *const nlattr,
+                                                                      data: *mut c_void)
+                                                                      -> c_int>;
 
     #[link(name = "mnl")]
     extern "C" {
@@ -200,10 +194,7 @@ pub mod attr {
         #[link_name = "mnl_attr_get_str"]
         pub fn get_str(attr: *const nlattr) -> *const c_char;
         #[link_name = "mnl_attr_put"]
-        pub fn put(nlh: *mut nlmsghdr,
-                   type_: u16,
-                   len: usize,
-                   data: *const c_void);
+        pub fn put(nlh: *mut nlmsghdr, type_: u16, len: usize, data: *const c_void);
         #[link_name = "mnl_attr_put_u8"]
         pub fn put_u8(nlh: *mut nlmsghdr, type_: u16, data: u8);
         #[link_name = "mnl_attr_put_u16"]
@@ -256,10 +247,7 @@ pub mod attr {
         #[link_name = "mnl_attr_validate"]
         pub fn validate(attr: *const nlattr, type_: data_type) -> c_int;
         #[link_name = "mnl_attr_validate2"]
-        pub fn validate2(attr: *const nlattr,
-                         type_: data_type,
-                         len: usize)
-                         -> c_int;
+        pub fn validate2(attr: *const nlattr, type_: data_type, len: usize) -> c_int;
         #[link_name = "mnl_attr_ok"]
         pub fn ok(attr: *const nlattr, len: c_int) -> u8;
         #[link_name = "mnl_attr_next"]
@@ -271,10 +259,7 @@ pub mod attr {
                      data: *mut c_void)
                      -> c_int;
         #[link_name = "mnl_attr_parse_nested"]
-        pub fn parse_nested(attr: *const nlattr,
-                            cb: attr_cb_t,
-                            data: *mut c_void)
-                            -> c_int;
+        pub fn parse_nested(attr: *const nlattr, cb: attr_cb_t, data: *mut c_void) -> c_int;
         #[link_name = "mnl_attr_parse_payload"]
         pub fn parse_payload(payload: *const c_void,
                              payload_len: usize,
@@ -289,10 +274,9 @@ pub mod callback {
 
     use nlmsghdr;
 
-    pub type cb_t =
-        ::std::option::Option<unsafe extern "C" fn(nlh: *const nlmsghdr,
-                                                     data: *mut c_void)
-                                                     -> c_int>;
+    pub type cb_t = ::std::option::Option<unsafe extern "C" fn(nlh: *const nlmsghdr,
+                                                                 data: *mut c_void)
+                                                                 -> c_int>;
 
     enum_from_primitive! {
         #[derive(Debug, Eq, PartialEq)]
